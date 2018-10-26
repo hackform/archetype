@@ -5,6 +5,8 @@ services:
     image: registry:2
     ports:
       - 5050:5000
+    networks:
+      - mithlond-net
     environment:
       REGISTRY_AUTH: htpasswd
       REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
@@ -18,3 +20,7 @@ services:
       placement:
         constraints:
           - node.role == manager
+
+networks:
+  mithlond-net:
+    external: true
