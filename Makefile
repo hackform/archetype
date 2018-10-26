@@ -1,11 +1,11 @@
 # swarm
-OVERLAY_NETWORK=governor-net
-GOV_ROOTPATH?=data
+OVERLAY_NETWORK=mithlond-net
+MITHLOND_ROOTPATH?=data
 
 # registry
 REGISTRY_PASSWORD_COST=12
 REGISTRY_USERNAME=admin
-REGISTRY_STACK=governor-registry
+REGISTRY_STACK=mithlond-registry
 REGISTRY_URL=127.0.0.1:5050
 
 # etc
@@ -52,7 +52,7 @@ swarm-destroy:
 .PHONY: registry-init registry-up registry-down registry-connect
 
 registry-init:
-	./registry-init.sh $(GOV_ROOTPATH) $(REGISTRY_PASSWORD_COST) $(REGISTRY_USERNAME)
+	./registry-init.sh $(MITHLOND_ROOTPATH) $(REGISTRY_PASSWORD_COST) $(REGISTRY_USERNAME)
 
 registry-up:
 	docker stack deploy -c dc.registry.yaml $(REGISTRY_STACK)

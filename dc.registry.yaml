@@ -10,5 +10,5 @@ services:
       REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
       REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
     volumes:
-      - ${GOV_ROOTPATH}/registry/data:/var/lib/registry
-      - ${GOV_ROOTPATH}/registry/auth:/auth
+      - ${MITHLOND_ROOTPATH}/registry/data:/var/lib/registry
+      - ${MITHLOND_ROOTPATH}/registry/auth:/auth

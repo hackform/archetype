@@ -1,1 +1,1 @@
-export GOV_ROOTPATH="$(pwd)/data"
+export MITHLOND_ROOTPATH="$(pwd)/data"
