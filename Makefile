@@ -13,13 +13,13 @@ PAGER?=less
 
 # help
 help:
-	$(PAGER) help.md
+	@$(PAGER) help.md
 
 # initialize environment vars
 .PHONY: env source unsource
 
 env:
-	./env.sh
+	@./env.sh
 
 source:
 	@echo "Run: source ./source.sh"
