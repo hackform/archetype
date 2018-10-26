@@ -1,5 +1,19 @@
+# swarm
 OVERLAY_NETWORK=governor-net
+GOV_ROOTPATH?=data
+
+# registry
+REGISTRY_PASSWORD_COST=12
+REGISTRY_USERNAME=admin
 REGISTRY_STACK=governor-registry
+REGISTRY_URL=127.0.0.1:5050
+
+# etc
+PAGER?=less
+
+# help
+help:
+	$(PAGER) help.md
 
 # initialize environment vars
 .PHONY: env source unsource
@@ -14,9 +28,9 @@ unsource:
 	@echo "Run: source ./unsource.sh"
 
 # swarm control
-.PHONY: init up danger-down danger-destroy init-dirs swarm-init swarm-destroy registry-up
+.PHONY: init up danger-down danger-destroy connect
 
-init: init-dirs swarm-init
+init: swarm-init registry-init
 
 up: registry-up
 
@@ -24,8 +38,9 @@ danger-down: registry-down
 
 danger-destroy: swarm-destroy
 
-init-dirs:
-	mkdir -p data/registry
+connect: registry-connect
+
+.PHONY: swarm-init swarm-destroy
 
 swarm-init:
 	docker swarm init
@@ -34,8 +49,16 @@ swarm-init:
 swarm-destroy:
 	docker swarm leave --force
 
+.PHONY: registry-init registry-up registry-down registry-connect
+
+registry-init:
+	./registry-init.sh $(GOV_ROOTPATH) $(REGISTRY_PASSWORD_COST) $(REGISTRY_USERNAME)
+
 registry-up:
 	docker stack deploy -c dc.registry.yaml $(REGISTRY_STACK)
 
 registry-down:
 	docker stack rm $(REGISTRY_STACK)
+
+registry-connect:
+	docker login $(REGISTRY_URL)
