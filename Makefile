@@ -82,3 +82,12 @@ router-up:
 
 router-down:
 	docker stack rm $(ROUTER_STACK)
+
+# test service
+.PHONY: test-up test-down
+
+test-up:
+	docker stack deploy -c dc.test.yaml test
+
+test-down:
+	docker stack rm test
