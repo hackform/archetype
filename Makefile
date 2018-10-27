@@ -1,20 +1,3 @@
-# general
-LAUNCH_ROOTPATH?=data
-
-# registry
-REGISTRY_PASSWORD_COST=12
-REGISTRY_USERNAME=admin
-REGISTRY_STACK=launch-registry
-LAUNCH_REGISTRY_PORT?=5050
-REGISTRY_URL=127.0.0.1:$(LAUNCH_REGISTRY_PORT)
-
-# router
-LAUNCH_HTTP_PORT?=80
-LAUNCH_HTTPS_PORT?=443
-LAUNCH_TRAEFIK_PORT?=4242
-LAUNCH_NETWORK=launch-net
-ROUTER_STACK=launch-router
-
 # etc
 PAGER?=less
 
@@ -23,23 +6,17 @@ help:
 	@$(PAGER) help.md
 
 # environment
-.PHONY: env source unsource
+.PHONY: env
 
 env:
 	@./env.sh
-
-source:
-	@echo "Run: source ./source.sh"
-
-unsource:
-	@echo "Run: source ./unsource.sh"
 
 # control
 .PHONY: platform init launch danger-land danger-destroy connect
 
 platform: swarm-init
 
-init: registry-init router-init
+init: registry-init router-init servicedef-gen
 
 launch: registry-up router-up
 
@@ -49,39 +26,47 @@ danger-destroy: swarm-destroy
 
 connect: registry-connect
 
+# service definitions
+.PHONY: servicedef-gen
+
+servicedef-gen:
+	./servicedef-gen.sh
+
 # swarm
 .PHONY: swarm-init swarm-destroy
 
 swarm-init:
 	docker swarm init
-	docker network create -d overlay $(LAUNCH_NETWORK)
+	docker network create -d overlay launch-net
 
 swarm-destroy:
 	docker swarm leave --force
 
 # registry
+REGISTRY_STACK=launch-registry
 .PHONY: registry-init registry-up registry-down registry-connect
 
 registry-init:
-	./registry-init.sh $(LAUNCH_ROOTPATH) $(REGISTRY_PASSWORD_COST) $(REGISTRY_USERNAME)
+	./registry-init.sh
 
 registry-up:
-	docker stack deploy -c dc.registry.yaml $(REGISTRY_STACK)
+	docker stack deploy -c defs/dc.registry.yaml $(REGISTRY_STACK)
 
 registry-down:
 	docker stack rm $(REGISTRY_STACK)
 
 registry-connect:
-	docker login $(REGISTRY_URL)
+	docker login 127.0.0.1:5050
 
 # router
+ROUTER_STACK=launch-router
 .PHONY: router-init router-up router-down
 
 router-init:
-	./router-init.sh $(LAUNCH_ROOTPATH)
+	./router-init.sh
 
 router-up:
-	docker stack deploy -c dc.router.yaml $(ROUTER_STACK)
+	docker stack deploy -c defs/dc.router.yaml $(ROUTER_STACK)
 
 router-down:
 	docker stack rm $(ROUTER_STACK)
@@ -90,7 +75,7 @@ router-down:
 .PHONY: test-up test-down
 
 test-up:
-	docker stack deploy -c dc.test.yaml test
+	docker stack deploy -c defs/dc.test.yaml test
 
 test-down:
 	docker stack rm test

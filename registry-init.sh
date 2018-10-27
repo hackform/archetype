@@ -1,7 +1,4 @@
-# $1: root volume mount path
-# $2: password cost
-# $3: registry admin username
-
-mkdir -p $1/registry/data
-mkdir -p $1/registry/auth
-htpasswd -Bc -C $2 $1/registry/auth/htpasswd $3
+source ./source.sh
+mkdir -p $LAUNCH_ROOTPATH/registry/data
+mkdir -p $LAUNCH_ROOTPATH/registry/auth
+htpasswd -Bc -C $REGISTRY_PASSWORD_COST $LAUNCH_ROOTPATH/registry/auth/htpasswd $REGISTRY_USERNAME

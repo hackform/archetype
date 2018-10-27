@@ -6,8 +6,6 @@
 
 - `make help`: prints this help file
 - `make env`: prints the current state of environment variables
-- `source ./source.sh`: sets the environment variables needed by docker swarm
-- `source ./unsource.sh`: unsets the environment variables set by source.sh
 
 ### General
 
