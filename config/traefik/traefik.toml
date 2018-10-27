@@ -203,7 +203,7 @@ swarmMode = true
 #
 # Optional
 #
-network = "mithlond-net"
+network = "launch-net"
 
 # Expose containers by default in traefik
 #

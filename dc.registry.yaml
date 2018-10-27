@@ -6,14 +6,14 @@ services:
     ports:
       - 5050:5000
     networks:
-      - mithlond-net
+      - launch-net
     environment:
       REGISTRY_AUTH: htpasswd
       REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
       REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
     volumes:
-      - ${MITHLOND_ROOTPATH}/registry/data:/var/lib/registry
-      - ${MITHLOND_ROOTPATH}/registry/auth:/auth
+      - ${LAUNCH_ROOTPATH}/registry/data:/var/lib/registry
+      - ${LAUNCH_ROOTPATH}/registry/auth:/auth
     deploy:
       mode: replicated
       replicas: 1
@@ -22,5 +22,5 @@ services:
           - node.role == manager
 
 networks:
-  mithlond-net:
+  launch-net:
     external: true

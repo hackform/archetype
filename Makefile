@@ -1,18 +1,18 @@
 # general
-MITHLOND_ROOTPATH?=data
+LAUNCH_ROOTPATH?=data
 
 # registry
 REGISTRY_PASSWORD_COST=12
 REGISTRY_USERNAME=admin
-REGISTRY_STACK=mithlond-registry
+REGISTRY_STACK=launch-registry
 REGISTRY_URL=127.0.0.1:5050
 
 # router
-MITHLOND_HTTP_PORT?=80
-MITHLOND_HTTPS_PORT?=443
-MITHLOND_TRAEFIK_PORT?=4242
-MITHLOND_NETWORK=mithlond-net
-ROUTER_STACK=mithlond-router
+LAUNCH_HTTP_PORT?=80
+LAUNCH_HTTPS_PORT?=443
+LAUNCH_TRAEFIK_PORT?=4242
+LAUNCH_NETWORK=launch-net
+ROUTER_STACK=launch-router
 
 # etc
 PAGER?=less
@@ -51,7 +51,7 @@ connect: registry-connect
 
 swarm-init:
 	docker swarm init
-	docker network create -d overlay $(MITHLOND_NETWORK)
+	docker network create -d overlay $(LAUNCH_NETWORK)
 
 swarm-destroy:
 	docker swarm leave --force
@@ -60,7 +60,7 @@ swarm-destroy:
 .PHONY: registry-init registry-up registry-down registry-connect
 
 registry-init:
-	./registry-init.sh $(MITHLOND_ROOTPATH) $(REGISTRY_PASSWORD_COST) $(REGISTRY_USERNAME)
+	./registry-init.sh $(LAUNCH_ROOTPATH) $(REGISTRY_PASSWORD_COST) $(REGISTRY_USERNAME)
 
 registry-up:
 	docker stack deploy -c dc.registry.yaml $(REGISTRY_STACK)
@@ -75,7 +75,7 @@ registry-connect:
 .PHONY: router-init router-up router-down
 
 router-init:
-	./router-init.sh $(MITHLOND_ROOTPATH)
+	./router-init.sh $(LAUNCH_ROOTPATH)
 
 router-up:
 	docker stack deploy -c dc.router.yaml $(ROUTER_STACK)

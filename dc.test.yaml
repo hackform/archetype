@@ -4,15 +4,15 @@ services:
   whoami:
     image: containous/whoami
     networks:
-      - mithlond-net
+      - launch-net
     deploy:
       mode: replicated
       replicas: 1
       labels:
         - "traefik.enable=true"
-        - "traefik.docker.network=mithlond-net"
+        - "traefik.docker.network=launch-net"
         - "traefik.port=80"
 
 networks:
-  mithlond-net:
+  launch-net:
     external: true
