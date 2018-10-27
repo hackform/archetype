@@ -34,13 +34,15 @@ unsource:
 	@echo "Run: source ./unsource.sh"
 
 # control
-.PHONY: init up danger-down danger-destroy connect
+.PHONY: platform init launch danger-land danger-destroy connect
 
-init: swarm-init registry-init router-init
+platform: swarm-init
 
-up: registry-up router-up
+init: registry-init router-init
 
-danger-down: registry-down router-down
+launch: registry-up router-up
+
+danger-land: registry-down router-down
 
 danger-destroy: swarm-destroy
 
