@@ -2,19 +2,51 @@
 # Global configuration
 ################################################################
 
-# Enable debug mode
+# Enable debug mode.
+# This will install HTTP handlers to expose Go expvars under /debug/vars and
+# pprof profiling data under /debug/pprof/.
+# The log level will be set to DEBUG unless `logLevel` is specified.
 #
 # Optional
 # Default: false
 #
 # debug = true
 
-# Log level
+# Periodically check if a new version has been released.
 #
 # Optional
-# Default: "ERROR"
+# Default: true
 #
-# logLevel = "DEBUG"
+# checkNewVersion = false
+
+# Tells traefik whether it should keep the trailing slashes in the paths (e.g. /paths/) or redirect to the no trailing slash paths instead (/paths).
+#
+# Optional
+# Default: false
+#
+# keepTrailingSlash = false
+
+# Providers throttle duration.
+#
+# Optional
+# Default: "2s"
+#
+# providersThrottleDuration = "2s"
+
+# Controls the maximum idle (keep-alive) connections to keep per-host.
+#
+# Optional
+# Default: 200
+#
+# maxIdleConnsPerHost = 200
+
+# If set to true invalid SSL certificates are accepted for backends.
+# This disables detection of man-in-the-middle attacks so should only be used on secure backend networks.
+#
+# Optional
+# Default: false
+#
+# insecureSkipVerify = true
 
 # Entrypoints to be used by frontends that do not specify any entrypoint.
 # Each frontend can specify its own entrypoints.
@@ -46,8 +78,10 @@
 #    [entryPoints.https.tls]
 
 ################################################################
-# Traefik logs configuration
+# Logs configuration
 ################################################################
+
+logLevel = "INFO"
 
 # Traefik logs
 # Enabled by default and log to stdout
@@ -70,10 +104,6 @@
 # Default: "common"
 #
 # format = "common"
-
-################################################################
-# Access logs configuration
-################################################################
 
 # Enable access logs
 # By default it will write to stdout and produce logs in the textual
