@@ -14,7 +14,7 @@ There are four states: uninitialized, initialized, configured, running
 - `make platform`: brings the env to an initialized state
     - runs `swarm-init`
 - `make init`: brings the env to a configured state
-    - runs `registry-init`, `router-init`
+    - runs `registry-init`, `router-init`, `servicedef-gen`
 - `make launch`: brings the env to a running state
     - runs `registry-up`, `router-up`
 - `make danger-land`: brings the env from a running to a configured state
@@ -22,6 +22,10 @@ There are four states: uninitialized, initialized, configured, running
 - `make danger-destroy`: brings the env to an uninitialized state
     - runs `swarm-destroy`
 - `make connect`: for use by a client, establishes connections to a running env
+
+### Service definitions
+
+- `make servicedef-gen`: generates service definitions from templates
 
 ### Swarm
 
