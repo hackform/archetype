@@ -183,7 +183,7 @@ logLevel = "INFO"
 # Optional
 # Default: ""
 #
-domain = "docker.localhost"
+domain = "localhost"
 
 # Enable watch docker changes
 #

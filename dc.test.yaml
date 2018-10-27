@@ -9,10 +9,9 @@ services:
       mode: replicated
       replicas: 1
       labels:
-        - "traefik.enabled=true"
+        - "traefik.enable=true"
         - "traefik.docker.network=mithlond-net"
         - "traefik.port=80"
-        - "traefik.frontend.rule=Host:whoami.docker.localhost"
 
 networks:
   mithlond-net:
