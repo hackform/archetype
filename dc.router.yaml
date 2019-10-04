@@ -5,6 +5,7 @@ services:
     image: traefik:2.0
     command:
       - '--log.level=INFO'
+      #- '--accesslog=true'
       - '--api.insecure=true'
       - '--api.dashboard=true'
       - '--providers.docker=true'
