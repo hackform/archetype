@@ -11,6 +11,11 @@ services:
       - '--providers.docker.swarmmode=true'
       - '--providers.docker.exposedbydefault=false'
       - '--entrypoints.web.address=:80'
+      #- '--entrypoints.websecure.address=:443'
+      #- '--certificatesresolvers.httpchallengeresolver.acme.httpchallenge=true'
+      #- '--certificatesresolvers.httpchallengeresolver.acme.httpchallenge.entrypoint=web'
+      #- '--certificatesresolvers.httpchallengeresolver.acme.email=user@domain.com'
+      #- '--certificatesresolvers.httpchallengeresolver.acme.storage=/acme.json'
     ports:
       - ${ROUTER_HTTP_PORT}:80
       - ${ROUTER_HTTPS_PORT}:443

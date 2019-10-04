@@ -11,9 +11,13 @@ services:
       labels:
         - 'traefik.enable=true'
         - 'traefik.docker.network=launch-net'
-        - 'traefik.http.routers.whoami.entrypoints=web'
-        - 'traefik.http.routers.whoami.rule=Host(`whoami.localhost`)'
         - 'traefik.http.services.whoami.loadbalancer.server.port=80'
+        - 'traefik.http.routers.whoami.entrypoints=web'
+        - 'traefik.http.routers.whoami.rule=Host(`localhost`)'
+        #- 'traefik.http.routers.whoami.entrypoints=websecure'
+        #- 'traefik.http.routers.whoami.tls.certresolver=httpchallengeresolver'
+        #- "traefik.http.routers.whoami.middlewares=httpsredirectscheme@docker"
+        #- 'traefik.http.middlewares.httpsredirectscheme.redirectscheme.scheme=https'
 
 networks:
   launch-net:
