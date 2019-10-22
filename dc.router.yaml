@@ -11,6 +11,7 @@ services:
       - '--providers.docker=true'
       - '--providers.docker.swarmmode=true'
       - '--providers.docker.exposedbydefault=false'
+      - '--providers.docker.network=launch-net'
       - '--entrypoints.web.address=:80'
       #- '--entrypoints.websecure.address=:443'
       #- '--certificatesresolvers.httpchallengeresolver.acme.httpchallenge=true'
@@ -24,7 +25,7 @@ services:
     networks:
       - launch-net
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - ${LAUNCH_ROOTPATH}/traefik/acme.json:/acme.json
     deploy:
       mode: replicated
