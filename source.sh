@@ -10,3 +10,5 @@ export ROUTER_HTTPS_PORT=8443
 export ROUTER_MONITOR_PORT=4242
 
 export SERVICE_NAME=whoami
+export SERVICE_PORT=80
+export SERVICE_HOST=localhost
