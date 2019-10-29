@@ -1,4 +1,4 @@
-source ./source.sh
+. ./source.sh
 
 printf "\n# General options\n"
 

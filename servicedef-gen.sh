@@ -1,4 +1,4 @@
-source ./source.sh
+. ./source.sh
 out=defs
 rm -rf $out
 mkdir -p $out
